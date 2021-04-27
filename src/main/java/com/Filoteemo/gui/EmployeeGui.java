@@ -28,7 +28,6 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneLayout;
 
 import com.Filoteemo.database.EmployeeDao;
-import com.Filoteemo.filehandling.FileInput;
 import com.Filoteemo.main.Employee;
 
 public class EmployeeGui extends JFrame implements ActionListener{ 
