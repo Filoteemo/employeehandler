@@ -30,6 +30,8 @@ import javax.swing.ScrollPaneLayout;
 import com.Filoteemo.database.EmployeeDao;
 import com.Filoteemo.main.Employee;
 
+import filehandling.FileInput;
+
 public class EmployeeGui extends JFrame implements ActionListener{ 
 	
 		private int framewidth = 700;
@@ -53,6 +55,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 		JButton readById = new JButton("Read by ID");
 		JButton updateById = new JButton("Update by ID");
 		JButton deleteById = new JButton("Delete by ID");
+		JButton storeResult = new JButton("Store results");
 		JButton clearScrollPane = new JButton("Clear results");
 		String newLine = "\n";
 		ArrayList<Employee> employees = new ArrayList<>();
@@ -105,6 +108,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			sidebar.add(readById);
 			sidebar.add(updateById);
 			sidebar.add(deleteById);
+			sidebar.add(storeResult);
 			
 			
 			// content.setBackground(Color.WHITE); 
@@ -124,6 +128,8 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			updateById.addActionListener(this);
 			deleteById.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 			deleteById.addActionListener(this);
+			storeResult.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+			storeResult.addActionListener(this);
 			clearScrollPane.addActionListener(this);
 			
 			//JScrollPane preferences
@@ -190,6 +196,10 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			if(e.getSource()==deleteById || e.getSource()==delete) {
 				DeleteEmployee deleteEmployeeForm = new DeleteEmployee();
 				deleteEmployeeForm.setVisible(true);
+			}
+			
+			if(e.getSource()==storeResult) {
+				FileInput newFile = new FileInput();
 			}
 			
 		}
