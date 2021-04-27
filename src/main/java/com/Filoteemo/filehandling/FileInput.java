@@ -1,4 +1,4 @@
-package filehandling;
+package com.Filoteemo.filehandling;
 
 import java.io.FileOutputStream;
 import java.nio.file.Path;
