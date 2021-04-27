@@ -201,6 +201,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 				String result = textarea.getText();
 				FileInput write = new FileInput(result);
 				System.out.println(result);
+				JOptionPane.showMessageDialog(null, "Result stored!");
 			}
 			
 		}
