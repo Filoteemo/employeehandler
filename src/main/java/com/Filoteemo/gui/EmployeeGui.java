@@ -41,6 +41,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 		
 		JMenuBar bar = new JMenuBar(); 
 		JMenu file = new JMenu("File");
+		JMenu about = new JMenu("About");
 		JMenuItem create, read, update, delete, close;
 		JPanel sidebar = new JPanel();
 		JPanel content = new JPanel(new BorderLayout());
@@ -71,7 +72,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 
 			//menu bar preferences
 			bar.add(file);
-			
+			bar.add(about);			
 			//menu item preferences
 			create = new JMenuItem("Create new employee...");
 			create.addActionListener(this);
