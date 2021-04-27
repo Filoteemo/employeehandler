@@ -18,7 +18,7 @@ import com.Filoteemo.main.Employee;
 
 public class CreateEmployee extends JFrame implements ActionListener{
 	
-	private int width = 500;
+	private int width = 600;
 	private int height = 400;
 	 private JLabel labelFirstname = new JLabel("Enter firstname: ");
 	 private JTextField textFirstname = new JTextField(20);
