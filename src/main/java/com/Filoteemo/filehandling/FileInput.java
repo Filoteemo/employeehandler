@@ -3,7 +3,7 @@ package com.Filoteemo.filehandling;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+//klassen er foreløpig ikke i bruk
 public class FileInput {
 
 	

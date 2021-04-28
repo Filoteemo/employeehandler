@@ -8,8 +8,6 @@ public class EmployeeInitalizer {
 		
 		EmployeeGui test = new EmployeeGui();
 		test.setVisible(true);
-		System.out.println("test");
-
 	}
 
 }

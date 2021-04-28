@@ -9,12 +9,19 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,12 +33,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.Filoteemo.database.EmployeeDao;
+import com.Filoteemo.filehandling.DocumentsManager;
 import com.Filoteemo.filehandling.FileInput;
 import com.Filoteemo.main.Employee;
 
-public class EmployeeGui extends JFrame implements ActionListener{ 
+public class EmployeeGui extends JFrame implements ActionListener, DocumentsManager{ 
 	
 		private int framewidth = 700;
 		private int frameheight = 600;
@@ -55,6 +64,8 @@ public class EmployeeGui extends JFrame implements ActionListener{
 		JButton updateById = new JButton("Update by ID");
 		JButton deleteById = new JButton("Delete by ID");
 		JButton storeResult = new JButton("Store result");
+		JButton readFile = new JButton("Read file");
+		JFileChooser jc = new JFileChooser();
 		JButton clearScrollPane = new JButton("Clear results");
 		String newLine = "\n";
 		ArrayList<Employee> employees = new ArrayList<>();
@@ -108,6 +119,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			sidebar.add(updateById);
 			sidebar.add(deleteById);
 			sidebar.add(storeResult);
+			sidebar.add(readFile);
 			
 			
 			// content.setBackground(Color.WHITE); 
@@ -128,7 +140,58 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			deleteById.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 			deleteById.addActionListener(this);
 			storeResult.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-			storeResult.addActionListener(this);
+			storeResult.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					jc.setFileSelectionMode(JFileChooser.FILES_ONLY); // sets the selection to only files
+					jc.setDialogTitle("Specify the file you want to save");
+					
+					jc.setCurrentDirectory(new File("C:\\users\\sindr\\eclipse-workspace\\OBJ2100\\"));
+					
+					FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", ".text", "txt"); // creates a filter to only accept specified filetypes
+					jc.setFileFilter(filter); //sets the filter to JFileChooser
+					
+					int returnValue = jc.showSaveDialog(null); // creates a returnValue variable which holds an integer
+					
+					if(returnValue == JFileChooser.APPROVE_OPTION) {// if user chooses to click save do the following
+						File fileToSave = jc.getSelectedFile();
+						
+						try {
+							writeToFile(textarea.getText(), fileToSave);
+							JOptionPane.showMessageDialog(null, "Save successfull");
+						}
+						catch(Exception error) {
+							System.out.println(error);
+						}
+					}
+				}
+			});
+			readFile.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+			readFile.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { //Actionlistener for reading files
+					
+					jc.setFileSelectionMode(JFileChooser.FILES_ONLY); // opens a filechooser
+					jc.setDialogTitle("Choose the file you want to read"); 
+					
+					jc.setCurrentDirectory(new File("C:\\users\\sindr\\eclipse-workspace\\OBJ2100\\")); // specified directory
+					
+					FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt",".text","txt"); 
+					jc.setFileFilter(filter);
+					
+					int returnValue = jc.showOpenDialog(null);
+					
+					if(returnValue == JFileChooser.APPROVE_OPTION) {
+						File fileToRead = jc.getSelectedFile();
+					
+					try {
+						textarea.append(readFromFile(fileToRead));
+					}
+					catch(Exception error) {
+						System.out.println(error);
+					}
+				  }
+				}
+			});
 			clearScrollPane.addActionListener(this);
 			
 			//JScrollPane preferences
@@ -138,6 +201,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			//textarea preferences
 			//textarea.setPreferredSize(new Dimension(400, panelheight));
 			textarea.setMargin(new Insets(10,10,10,10));
+			System.out.println("Application started");
 		}
 
 		@Override
@@ -165,6 +229,7 @@ public class EmployeeGui extends JFrame implements ActionListener{
 			
 			if(e.getSource()==close) {
 				dispose();
+				System.out.println("Application stopped");
 			}
 			
 			if(e.getSource()==readById) {
@@ -197,12 +262,25 @@ public class EmployeeGui extends JFrame implements ActionListener{
 				deleteEmployeeForm.setVisible(true);
 			}
 			
-			if(e.getSource()==storeResult) {
-				String result = textarea.getText();
-				FileInput write = new FileInput(result);
-				System.out.println(result);
-				JOptionPane.showMessageDialog(null, "Result stored!");
+		}
+		
+		@Override
+		public void writeToFile(String text, File file) throws IOException {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		    writer.write(text);    
+		    writer.close();
+		}
+
+		@Override
+		public String readFromFile(File file) throws IOException {
+			BufferedReader reader = new BufferedReader(new FileReader(file)); // creates new buffered reader
+			String result = ""; // String variable to hold the result 
+			String read = reader.readLine(); // String variable which reads every line as long as there is one
+			while(read != null) { // while condition
+				result += read+newLine; // appends every line in the file to the result variable and adds a new line
+				read = reader.readLine(); // reads the next line in the file
 			}
-			
+			reader.close(); // closes the reader
+			return result; // result is returned as the specified return for this method is String datatype
 		}
 }
