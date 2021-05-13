@@ -52,7 +52,7 @@ public class EmployeeGui extends JFrame implements ActionListener, DocumentsMana
 		JMenuBar bar = new JMenuBar(); 
 		JMenu file = new JMenu("File");
 		JMenu about = new JMenu("About");
-		JMenuItem create, read, update, delete, close;
+		JMenuItem create, read, update, delete, close, readAbout;
 		JPanel sidebar = new JPanel();
 		JPanel content = new JPanel(new BorderLayout());
 		JTextArea textarea = new JTextArea(50, 5);
@@ -97,6 +97,21 @@ public class EmployeeGui extends JFrame implements ActionListener, DocumentsMana
 			delete.addActionListener(this);
 			close = new JMenuItem("Close");
 			close.addActionListener(this);
+			readAbout = new JMenuItem("About this program");
+			readAbout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					File newFile = new File("C:\\users\\sindr\\eclipse-workspace\\employeehandler\\src\\main\\java\\com\\Filoteemo\\gui\\readme.txt"); // sets default path for reading spesific textfile
+					
+					try {
+						textarea.append(readFromFile(newFile)); //sends the new file to the readFromFile method which returns a String and then appends the result to the textarea
+					}
+					catch(Exception error) {
+						System.out.println(error);
+					}
+				}
+				
+			});
 			
 			//Add item to menu item
 			file.add(create);
@@ -104,6 +119,7 @@ public class EmployeeGui extends JFrame implements ActionListener, DocumentsMana
 			file.add(update);
 			file.add(delete);
 			file.add(close);
+			about.add(readAbout);
 			
 			//JLabel preferences
 			sidebarHeader.setForeground(Color.WHITE);
@@ -276,11 +292,13 @@ public class EmployeeGui extends JFrame implements ActionListener, DocumentsMana
 			BufferedReader reader = new BufferedReader(new FileReader(file)); // creates new buffered reader
 			String result = ""; // String variable to hold the result 
 			String read = reader.readLine(); // String variable which reads every line as long as there is one
-			while(read != null) { // while condition
+			while(read != null) { // while condition that loops through file as long as there is a line
 				result += read+newLine; // appends every line in the file to the result variable and adds a new line
 				read = reader.readLine(); // reads the next line in the file
 			}
 			reader.close(); // closes the reader
 			return result; // result is returned as the specified return for this method is String datatype
 		}
+		
+		
 }

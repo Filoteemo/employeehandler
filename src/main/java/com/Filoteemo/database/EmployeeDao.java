@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.Filoteemo.main.Employee;
 
 public class EmployeeDao {
@@ -64,7 +66,13 @@ public class EmployeeDao {
 		try {
 			Statement st = connect.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			while(rs.next()) {
+			
+			if(rs.next()==false) {
+				JOptionPane.showMessageDialog(null, "Could not find the given ID");
+			}
+			else {
+			
+			    do{
 				emp.setId(rs.getInt(1));
 				emp.setLastname(rs.getString(2));
 				emp.setFirstname(rs.getString(3));
@@ -73,7 +81,9 @@ public class EmployeeDao {
 				emp.setSalary(rs.getDouble(6));
 				employee.add(emp);
 			}
+			    while(rs.next());
 		}
+	}
 		catch(Exception e) {
 			System.out.println(e);
 		}
@@ -125,6 +135,7 @@ public class EmployeeDao {
 		}
 		
 	}
+
 	
 	public void deleteEmployee(int id) {
 		String sql = "delete from employees where id=?";
