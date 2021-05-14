@@ -1,11 +1,8 @@
 package com.Filoteemo.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,14 +14,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,12 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneLayout;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.Filoteemo.database.EmployeeDao;
 import com.Filoteemo.filehandling.DocumentsManager;
-import com.Filoteemo.filehandling.FileInput;
 import com.Filoteemo.main.Employee;
 
 public class EmployeeGui extends JFrame implements ActionListener, DocumentsManager{ 

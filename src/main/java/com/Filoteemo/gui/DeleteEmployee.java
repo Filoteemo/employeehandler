@@ -24,7 +24,6 @@ public class DeleteEmployee extends JFrame implements ActionListener {
 	
 	 private int width = 500;
 	 private int height = 400;
-	 private int empId;
 	 
 	 ArrayList<Employee> selectEmployeeId = new ArrayList<>();
 	 EmployeeDao emp = new EmployeeDao();
