@@ -21,8 +21,8 @@ public class EmployeeDao {
 	public EmployeeDao() { // db connection constructor
 		
 		String dbUrl = "jdbc:mysql://localhost:3306/demo";
-		String username = "root";
-		String password = "EayfruRm";
+		String username = "";
+		String password = "";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
